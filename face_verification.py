@@ -4,8 +4,8 @@ import argparse
 from insightface.app import FaceAnalysis
 
 parser = argparse.ArgumentParser()
-parser.add_argument("--image1", type=str)
-parser.add_argument("--image2", type=str)
+parser.add_argument("--image1", type=str, help="Path of the first image")
+parser.add_argument("--image2", type=str, help="Path of the second image")
 
 args = parser.parse_args()
 
@@ -34,7 +34,7 @@ embedding2 = result2[0]["embedding"]
 
 dist = np.sqrt(np.sum((embedding1 - embedding2)**2))
 
-if dist<22:
+if dist<24:
     print("Same Person")
 else:
     print("Diffrent Persons")
