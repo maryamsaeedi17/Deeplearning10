@@ -2,7 +2,7 @@
 The 10assignement of DeepLearning course- Face verification
 
 ------------------------
-![log](Inputs/logo.jpg)
+![logo](Inputs\logo.jpg)
 
 
 ## Face verification using [insightface library](https://github.com/deepinsight/insightface/tree/master/python-package)
