@@ -27,8 +27,6 @@ embedding1 = result1[0]["embedding"]
 img2 = cv2.imread(img2_path)
 img2 = cv2.cvtColor(img2, cv2.COLOR_BGR2RGB)
 
-cv2.cvtColor(img2, cv2.COLOR_BGR2RGB)
-
 result2 = app.get(img2)
 embedding2 = result2[0]["embedding"]
 
