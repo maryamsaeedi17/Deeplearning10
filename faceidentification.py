@@ -3,6 +3,7 @@ import cv2
 import numpy as np
 import matplotlib.pyplot as plt
 from insightface.app import FaceAnalysis
+from create_face_bank import CreatFaceBank
 
 
 class FaceIdentification():
@@ -20,30 +21,30 @@ class FaceIdentification():
         self.input = cv2.imread(args.image)
         self.input = cv2.cvtColor(self.input, cv2.COLOR_BGR2RGB)
 
+    def load_face_bank(self):
+        self.results = self.model.get(self.input)
+        self.face_bank = np.load("face_bank.npy", allow_pickle=True)
 
-        face_bank = np.load("face_bank.npy", allow_pickle=True )
+    def face_identifier(self):
+        threshold = 25
+        for result in results:
+            cv2.rectangle(input, (int(result.bbox[0]), int(result.bbox[1])), (int(result.bbox[2]), int(result.bbox[3])), (0, 0, 255), 1)
 
+            for person in face_bank:
+                face_bank_person_embedding = person["embedding"]
+                new_person_embedding = result["embedding"]
 
-results = app.get(input)
-print(len(results))
-
-threshold = 25
-
-for result in results:
-    cv2.rectangle(input, (int(result.bbox[0]), int(result.bbox[1])), (int(result.bbox[2]), int(result.bbox[3])), (0, 0, 255), 1)
-
-    for person in face_bank:
-        face_bank_person_embedding = person["embedding"]
-        new_person_embedding = result["embedding"]
-
-        dist = np.sqrt(np.sum((face_bank_person_embedding - new_person_embedding)**2))
+                dist = np.sqrt(np.sum((face_bank_person_embedding - new_person_embedding)**2))
         
-        if dist<threshold:
-            cv2.putText(input, person["name"], (int(result.bbox[0]), int(result.bbox[1] - 2)), cv2.FONT_HERSHEY_SIMPLEX, 0.4, (0, 255, 0), 1, cv2.LINE_AA)
-            break
+                if dist<threshold:
+                    cv2.putText(input, person["name"], (int(result.bbox[0]), int(result.bbox[1] - 2)), cv2.FONT_HERSHEY_SIMPLEX, 0.4, (0, 255, 0), 1, cv2.LINE_AA)
+                    break
 
-    else:
-        cv2.putText(input, "Unknown", (int(result.bbox[0]), int(result.bbox[1] - 2)), cv2.FONT_HERSHEY_SIMPLEX, 0.4, (255, 0, 0), 1, cv2.LINE_AA)
+            else:
+                cv2.putText(input, "Unknown", (int(result.bbox[0]), int(result.bbox[1] - 2)), cv2.FONT_HERSHEY_SIMPLEX, 0.4, (255, 0, 0), 1, cv2.LINE_AA)
 
-plt.imshow(input)
-plt.show()
+        plt.imshow(input)
+        plt.show()
+
+    def update_face_bank(self, args):
+        
