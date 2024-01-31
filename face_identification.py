@@ -15,3 +15,12 @@ args = parser.parse_args()
 
 img_path = args.image
 
+if args.update:
+    CreatFaceBank.creation_facebank()
+
+FaceIdentifier = FaceIdentification()
+
+FaceIdentifier.load_model()
+FaceIdentifier.load_image(img_path)
+FaceIdentifier.load_face_bank()
+FaceIdentifier.face_identifier()
