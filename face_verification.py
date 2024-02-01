@@ -36,3 +36,5 @@ if dist<24:
     print("Same Person")
 else:
     print("Diffrent Persons")
+
+print(dist)

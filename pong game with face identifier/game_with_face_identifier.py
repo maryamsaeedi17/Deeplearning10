@@ -43,8 +43,7 @@ while True:
             cv2.putText(input_image,"Unknown", (int(result.bbox[0]), int(result.bbox[1]) - 2), cv2.FONT_HERSHEY_COMPLEX_SMALL, 0.4, (255, 0, 0), 1, cv2.LINE_AA)
             print("Sorry! It is forbidden for you..")
 
-    # if cv2.waitKey(25) & 0xFF == ord('q'):
-    if 0xFF == ord('q'):
+    if cv2.waitKey(0) & 0xFF==ord('q'):
         break   
 
     plt.imshow(input_image)
