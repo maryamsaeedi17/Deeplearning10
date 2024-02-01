@@ -3,11 +3,12 @@ import arcade
 import numpy as np
 from insightface.app import FaceAnalysis
 from ponggame import Game
+import matplotlib.pyplot as plt
 
 app = FaceAnalysis(providers=["CPUExecutionProvider"], name="buffalo_s")
 app.prepare(ctx_id=0, det_size=(640, 640))
 
-my_face_bank = np.load("my_face_bank.npy", allow_pickle=True)
+my_face_bank = np.load("pong game with face identifier/my_face_bank.npy", allow_pickle=True)
 
 cap = cv2.VideoCapture(0)
 _, frame = cap.read()
@@ -42,8 +43,12 @@ while True:
             cv2.putText(input_image,"Unknown", (int(result.bbox[0]), int(result.bbox[1]) - 2), cv2.FONT_HERSHEY_COMPLEX_SMALL, 0.4, (255, 0, 0), 1, cv2.LINE_AA)
             print("Sorry! It is forbidden for you..")
 
-    if cv2.waitKey(1) & 0xFF == ord('q'):
+    # if cv2.waitKey(25) & 0xFF == ord('q'):
+    if 0xFF == ord('q'):
         break   
+
+    plt.imshow(input_image)
+    plt.show()
 
 cap.release()
 cv2.destroyAllWindows()
